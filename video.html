@@ -27,8 +27,7 @@
     		alert('111');
     		getUserMedia({
                 audio: true,
-                video: { width: 1280, height: 720 },
-                facingMode: { exact: "environment" }
+                video: { width: 1280, height: 720 }
             }, success, error);
     	}else{
     		alert('不支持访问用户媒体');
@@ -78,7 +77,11 @@
     }
 
     document.getElementById("stop").addEventListener("click", function () {
-   		mediaStreamTrack && mediaStreamTrack.stop();
+        alert("stop");
+        if(mediaStreamTrack){
+            alert("stop_aaa");
+            mediaStreamTrack.stop();
+        }
     });
     
     document.getElementById("picture").addEventListener("click", function () {
