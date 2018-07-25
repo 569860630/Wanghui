@@ -52,9 +52,10 @@ function error(error){
 if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia){
     alert("call camera");
 
-    //调用用户媒体设备,访问摄像头
+    //调用用户媒体设备,访问摄像头  
 //    var constrains = { audio: false, video: true };
-    var constrains = {video:{width:1280,height:720}};
+    var constrains = { audio: true};
+    //    var constrains = {video:{width:1280,height:720}};
     
     getUserMedia(constrains,success,error);
 } else {
