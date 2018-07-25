@@ -20,6 +20,7 @@
 </body>
 
 <script type="text/javascript">
+    alert(navigator.userAgent);
     var mediaStreamTrack;
   	var video = document.getElementById('video');
     document.getElementById("start").addEventListener("click", function () {
@@ -79,6 +80,7 @@
 
     document.getElementById("stop").addEventListener("click", function () {
         alert("stop");
+        alert(mediaStreamTrack);
         if(mediaStreamTrack){
             alert("stop_aaa");
             mediaStreamTrack.stop();
