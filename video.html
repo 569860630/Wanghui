@@ -61,7 +61,8 @@
     function success(stream) {
         alert('success');
         mediaStreamTrack = typeof stream.stop === 'function' ? stream : stream.getTracks()[1];
-        var video = document.getElementById('video');
+       alert((window.URL || window.webkitURL).createObjectURL(stream));
+        alert(stream);
         video.src = (window.URL || window.webkitURL).createObjectURL(stream);
         video.play(); 
         /*var video = document.getElementById("video");
