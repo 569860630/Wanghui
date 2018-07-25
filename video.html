@@ -48,16 +48,6 @@ function success(stream){
 function error(error){
     alert(error.name + error.message);
 }
-
-         navigator.mediaDevices.getUserMedia({video: true})
-         .then(function(stream) {
-             video.src = window.URL.createObjectURL(stream);
-             video.play();
-         })
-         .catch(function(err) {
-             console.log(err);
-         });
-    
     
 if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia){
     alert("call camera");
