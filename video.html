@@ -20,7 +20,8 @@
 </body>
 
 <script type="text/javascript">
-   
+    var mediaStreamTrack;
+  	var video = document.getElementById('video');
     document.getElementById("start").addEventListener("click", function () {
     	if(navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia){
     		alert('111');
