@@ -4,32 +4,99 @@
 </head>
 <body>
     
-    <video id="video" autoplay="" style='width:640px;height:480px'></video>
-    <button id='capture'>capture</button>
+    <video id="video" width="640px" height="480px" autoplay></video>
+    <button id="start" style="display:block" >开始</button>
+    <button id="picture" style="display:block" >拍照</button>
+    <button id="stop" style="display:block" >停止</button>
+    <button id="upload" style="display:block" >上传</button>
     <canvas id="canvas" width="480" height="320"></canvas>
     
 </body>
 
 <script type="text/javascript">
+   
+    document.getElementById("start").addEventListener("click", function () {
+    	if(navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia){
+    		alert('111');
+    		getUserMedia({video : {width: 1280, height: 720}}, success, error);
+    	}else{
+    		alert('不支持访问用户媒体');
+    	}
+    });
     
-function getUserMedia(constrains,success,error){
-    if(navigator.mediaDevices.getUserMedia){
-alert("最新标准API");
-        //最新标准API
-        navigator.mediaDevices.getUserMedia(constrains).then(success).catch(error);
-    } else if (navigator.webkitGetUserMedia){
-        //webkit内核浏览器
-        navigator.webkitGetUserMedia(constrains).then(success).catch(error);
-    } else if (navigator.mozGetUserMedia){
-        //Firefox浏览器
-        navagator.mozGetUserMedia(constrains).then(success).catch(error);
-    } else if (navigator.getUserMedia){
-        //旧版API
-        navigator.getUserMedia(constrains).then(success).catch(error);
+    function getUserMedia(constraints, success, error) {
+        if (navigator.mediaDevices.getUserMedia) {
+        	alert('最新标准API');
+            //最新的标准API
+            navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error);
+        } else if (navigator.webkitGetUserMedia) {
+        	alert('webkit核心浏览器');
+        	//webkit核心浏览器
+            navigator.webkitGetUserMedia(constraints,success, error)
+        } else if (navigator.mozGetUserMedia) {
+        	alert('firfox浏览器');
+        	//firfox浏览器
+            navigator.mozGetUserMedia(constraints, success, error);
+        } else if (navigator.msGetUserMedia) {
+            alert('ms');
+        	//ms
+        	navigator.msGetUserMedia(constraints, success, error);
+        } else if (navigator.getUserMedia) {
+        	alert('旧版API');
+        	//旧版API
+            navigator.getUserMedia(constraints, success, error);
+        }
     }
-}
+    
+    function success(stream) {
+        alert('success');
+        mediaStreamTrack = typeof stream.stop === 'function' ? stream : stream.getTracks()[1];
+        var video = document.getElementById('video');
+        video.src = (window.URL || window.webkitURL).createObjectURL(stream);
+        video.play(); 
+        /*var video = document.getElementById("video");
+        video.src = window.URL.createObjectURL(stream);
+        video.onloadedmetadata = function(e) {
+             console.log('nihao44eee4aaaaddda');
+             video.play();
+        }; */
+    }
 
-var video = document.getElementById("video");
+    function error(error) {
+    	alert(error.name +"<br>"+ error.message);
+    }
+
+    document.getElementById("stop").addEventListener("click", function () {
+   		mediaStreamTrack && mediaStreamTrack.stop();
+    });
+    
+    document.getElementById("picture").addEventListener("click", function () {
+    	var context = document.getElementById("canvas").getContext("2d");
+        context.drawImage(video, 0, 0, 320, 320);
+    });
+    
+    document.getElementById("upload").addEventListener("click", function () {
+        alert('上传');
+        /*var imgData=document.getElementById("canvas").toDataURL("image/png");
+        var mmmd=getBase64Image(document.getElementById("mmm"));
+        var data=imgData.substr(22);
+        console.log(mmmd)
+        debugger
+        $.post('recorder/target/sc',{'sj':data});*/
+    });
+
+    function getBase64Image(img) {
+         var canvastemp = document.createElement("canvas");
+         canvastemp.width = img.width;
+         canvastemp.height = img.height;
+         var ctx = canvas.getContext("2d");
+         ctx.drawImage(img, 0, 0, img.width, img.height);
+         var dataURL = canvas.toDataURL("image/png");
+         return dataURL
+         // return dataURL.replace("data:image/png;base64,", "");
+     } 
+    
+/*var video = document.getElementById("video");
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 
@@ -50,12 +117,7 @@ alert("03");
     };
 alert("04");
 }
-
-//异常的回调函数
-function error(error){
-    alert(error.name + error.message);
-}
-    
+   
 if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia){
     alert("call camera");
 
@@ -72,13 +134,7 @@ if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.w
     getUserMedia(constrains,success,error);
 } else {
     alert("你的浏览器不支持访问用户媒体设备");
-}
-
-//注册拍照按钮的单击事件
-document.getElementById("capture").addEventListener("click",function(){
-                                                    //绘制画面
-                                                    context.drawImage(video,0,0,480,320);
-                                                    });
+}*/
 
 </script>
 
