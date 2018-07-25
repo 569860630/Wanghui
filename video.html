@@ -4,7 +4,7 @@
 </head>
 <body>
     
-    <video id="video" width="640px" height="480px" autoplay></video>
+    <video id="video" width="480px" height="320px" autoplay></video>
     <button id="start" style="display:block" >开始</button>
     <button id="picture" style="display:block" >拍照</button>
     <button id="stop" style="display:block" >停止</button>
@@ -18,7 +18,7 @@
     document.getElementById("start").addEventListener("click", function () {
     	if(navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia){
     		alert('111');
-    		getUserMedia({video : {width: 1280, height: 720}}, success, error);
+    		getUserMedia({video :  width: { min: 1024, ideal: 1280, max: 1920 },height: { min: 776, ideal: 720, max: 1080 },facingMode: { exact: "environment" }}, success, error);
     	}else{
     		alert('不支持访问用户媒体');
     	}
