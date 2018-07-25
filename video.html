@@ -49,12 +49,21 @@ function error(error){
     alert(error.name + error.message);
 }
 
+         navigator.mediaDevices.getUserMedia({video: true})
+         .then(function(stream) {
+             video.src = window.URL.createObjectURL(stream);
+             video.play();
+         })
+         .catch(function(err) {
+             console.log(err);
+         });
+    
+    
 if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia){
     alert("call camera");
+
     //调用用户媒体设备,访问摄像头
-    getUserMedia({
-                 video:true
-                 },success,error);
+    getUserMedia({video:true},success,error);
 } else {
     alert("你的浏览器不支持访问用户媒体设备");
 }
