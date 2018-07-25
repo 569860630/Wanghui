@@ -18,7 +18,11 @@
     document.getElementById("start").addEventListener("click", function () {
     	if(navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia){
     		alert('111');
-    		getUserMedia({video :  width: { min: 1024, ideal: 1280, max: 1920 },height: { min: 776, ideal: 720, max: 1080 },facingMode: { exact: "environment" }}, success, error);
+    		getUserMedia({
+                audio: true,
+                video: { width: 1280, height: 720 },
+                facingMode: { exact: "environment" }
+            }, success, error);
     	}else{
     		alert('不支持访问用户媒体');
     	}
